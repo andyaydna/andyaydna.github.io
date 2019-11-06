@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="eng">
+        <head>
+                <title>Zombie Hunter</title>
+                <link rel="stylesheet" type="text/css" href="mystyle.css">
+        </head>
+
+        <body onload="zombie()">
+
+                <img src="pics/zombie_head.png" onclick="exploding_zombie()" id="zombie"> 
+
+                <audio id="gun" src="audio/gun.mp3" ></audio>
+
+                <p>Number of Zombies Killed:</p>
+                <p id="kills">0</p>
+
+
+                <div><button onclick="game_over()">End Game</button></div>
+
+        <script>
+                function zombie() 
+                {
+                        picture = document.getElementById("zombie");
+                        setInterval(change_back, 2000);
+                }
+
+                function exploding_zombie() 
+                {    
+                        let audio = document.getElementById("gun");
+                        audio.play();
+                        document.getElementById("kills").innerHTML = count();
+                        document.getElementById("zombie").src="pics/exploding_zombie.png";
+                        setTimeout(change_back, 2000);
+                }
+                document.getElementById("zombie").onclick = exploding_zombie
+                
+                function change_back()
+                {
+                        document.getElementById("zombie").src = "pics/zombie_head.png"
+                        document.getElementById("zombie").style.position = "absolute";
+                        //left -> window width(1536px) - picture width(400px) = 1136px
+                        picture.style.left = Math.round(Math.random() * 1136) + "px";
+                        //top -> window height=(722px) - picture height(300px) = 422px
+                        picture.style.top = Math.round(Math.random() * 422) + "px";
+                }
+
+                let count =
+                (
+                        function () 
+                        {
+                                let counter = 0;
+                                return function () 
+                                {
+                                        return counter += 1;
+                                }
+                })();
+
+                function game_over()
+                {
+                        location.reload();
+                }
+
+                let width = window.innerWidth
+                document.documentElement.clientWidth
+                document.body.clientWidth;
+                console.log("width =", width) //width=1536px
+
+                let height = window.innerHeight
+                document.documentElement.clientHeight
+                document.body.clientHeight;
+                console.log("height =",height) //height=721px
+        </script>
+        </body>
+</html>
